@@ -1,0 +1,9 @@
+[package]
+name    = "add"
+version = "0.1.0"
+authors = [ "Anh Duong <ninjahoahong@users.noreply.github.com>" ]
+
+[lib]
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+

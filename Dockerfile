@@ -7,7 +7,7 @@ RUN apt-get update \
     apt-utils \
     curl \
     gcc \
-    && rm -rf /var/lib/apt/lists/*
+    python
 
 # Install rust nightly and wasm32
 # https://www.hellorust.com/setup/wasm-target/
@@ -23,5 +23,18 @@ RUN ~/.cargo/bin/cargo install --git https://github.com/alexcrichton/wasm-gc
 # Expose port 8081
 EXPOSE 8081
 
+# Create the working folder
+RUN mkdir -p /usr/src/hello-webAssembly
+
 # Set the working directory to 
 WORKDIR /usr/src/hello-webAssembly
+
+# ADD the app folder to the current directory
+ADD ./app /usr/src/hello-webAssembly
+
+# BUILD web assembly
+# RUN ~/.cargo/bin/cargo +nightly build --release --target wasm32-unknown-unknown --verbose (not working ?)
+RUN ~/.cargo/bin/rustc +nightly --target wasm32-unknown-unknown -O src/add.rs -o src/add.wasm
+
+# Default run python server (array is for easier parsing)
+CMD ["python", "-m", "SimpleHTTPServer", "8081"]
