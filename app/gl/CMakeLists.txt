@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.11.0)
 project(HelloOpengl)
 
 set(CMAKE_VERBOSE_MAKEFILE 1)
+set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib")
+set(SOURCES "${SRC_DIR}/main.c")
 
 # Find and include glfw
 find_package(glfw REQUIRED)
