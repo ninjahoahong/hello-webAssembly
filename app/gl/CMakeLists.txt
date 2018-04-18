@@ -6,8 +6,13 @@ set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/lib")
 set(SOURCES "${SRC_DIR}/main.c")
 
+# Executable definition and properties
+add_executable(${PROJECT_NAME} ${SOURCES})
+target_include_directories(${PROJECT_NAME} PRIVATE "${SRC_DIR}")
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
+
 # Find and include glfw
-find_package(glfw REQUIRED)
+find_package(glfw3 REQUIRED)
 include_directories(${GLFW_INCLUDE_DIRS})
 link_libraries(${GLFW_LIBRARY_DIRS})
 
