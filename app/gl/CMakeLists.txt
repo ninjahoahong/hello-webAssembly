@@ -12,13 +12,23 @@ target_include_directories(${PROJECT_NAME} PRIVATE "${SRC_DIR}")
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 
 # Find and include glfw
-find_package(glfw3 REQUIRED)
-include_directories(${GLFW_INCLUDE_DIRS})
-link_libraries(${GLFW_LIBRARY_DIRS})
+
+## Don't build GLFW test
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+find_package(glfw3 3.2 REQUIRED)
+target_link_libraries(${PROJECT_NAME} glfw)
 
 # Find and include opengl
+if("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
 find_package(OpenGL REQUIRED)
-include_directories(${OPENGL_INCLUDE_DIRS})
+set(OPENGLES3_gl_LIBRARY ${OPENGL_LIBRARIES})
+else()
+find_package(OpenGLES3 REQUIRED)
+endif()
+target_link_libraries(${PROJECT_NAME} ${OPENGLES3_gl_LIBRARY})
 
 # Add glad
 set(GLAD_DIR "${LIB_DIR}/glad")
