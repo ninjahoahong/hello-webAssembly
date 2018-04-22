@@ -1,5 +1,4 @@
 *.js
-*.html
 *.wasm
 .DS_Store
 build
