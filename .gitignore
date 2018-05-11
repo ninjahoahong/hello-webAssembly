@@ -2,15 +2,4 @@
 *.wasm
 .DS_Store
 build
-
-
-## Ignore for CMake
-
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Testing
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
+.vscode
